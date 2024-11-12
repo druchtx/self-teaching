@@ -1,0 +1,29 @@
+<!--index.wxml-->
+<navigation-bar
+  title="Weixin"
+  back="{{false}}"
+  color="black"
+  background="#FFF"
+></navigation-bar>
+<scroll-view
+  class="scrollarea"
+  scroll-y
+  type="list"
+>
+  <view class="container">
+    Weixin
+    <text>time: {{time}}</text>
+    <text data-test="{{test}}">Hello world  </text>
+    <text >Hello world {{[1,2,3]}} </text>
+    <view wx:if="{{true}}"> True </view>
+    <view wx:elif="{{length > 2}}"> 2 </view>
+    <view wx:else> 3 </view>
+
+    <block wx:if="{{true}}">
+      <view> view1 </view>
+      <view> view2 </view>
+    </block>
+    <map></map>
+  </view>
+</scroll-view>
+
