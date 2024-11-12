@@ -1,24 +1,44 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/wishlist/index",
+    "pages/chat/index",
+    "pages/user/index"
   ],
   "window": {
+    "navigationBarTitleText": "Demo",
+    "navigationBarBackgroundColor": "#FFF",
     "navigationBarTextStyle": "black",
-    "nabigationBarTitleText": "MiniProgram",
-    "navigationStyle": "custom"
+    "navigationStyle":"default"
+
   },
-  "style": "v2",
-  "renderer": "skyline",
-  "rendererOptions": {
-    "skyline": {
-      "defaultDisplayBlock": true,
-      "defaultContentBox": true,
-      "tagNameStyleIsolation": "legacy",
-      "disableABTest": true,
-      "sdkVersionBegin": "3.0.0",
-      "sdkVersionEnd": "15.255.255"
-    }
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/wishlist/index",
+        "text": "收藏"
+      },
+      {
+        "pagePath": "pages/chat/index",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/user/index",
+        "text": "我的"
+      }
+    ],
+    "position": "bottom",
+    "color": "#797C86",
+    "selectedColor": "#FF333F",
+    "backgroundColor": "#FFF",
+    "borderStyle": "white"
   },
+  "backgroundColor": "#F4F5F8",
+  "renderer": "webview",
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"
