@@ -1,7 +1,2 @@
 # self-teaching@ruby
 
-
-
-
-
-
