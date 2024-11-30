@@ -26,7 +26,7 @@ let quotation = """
                Line \(myConstant)
     """
 
-// [] 创建数字或者字典类型
+// [] 创建数组或者字典类型
 var fruits = ["apple", "limes", "orange"]
 fruits[1] = "grapes"
 
@@ -316,7 +316,267 @@ triangleAndSquare.square = Square(sideLength: 50, name: "larger square")
 print(triangleAndSquare.triangle.sideLength)
 // Prints "50.0"
 
-// 可选值 
+// 可选值
 let optionalSquare: Square? = Square(sideLength: 2.5, name: "optional square")
 let sideLength = optionalSquare?.sideLength
 
+// 枚举, 跟类一样可以有方法
+enum Rank: Int {
+    case ace = 1  // 默认从0开始，也可以指定特定的值改变行为
+    case two, three, four, five, six, seven, eight, nine, ten
+    case jack, queen, king
+
+    func simpleDescription() -> String {
+        switch self {
+        case .ace:
+            return "ace"
+        case .jack:
+            return "jack"
+        default:
+            return String(self.rawValue)
+        }
+    }
+}
+
+let ace = Rank.ace
+let aceRawValue = ace.rawValue
+
+enum Suit {
+    case spades, hearts, diamonds, clubs
+
+    func simpleDescription() -> String {
+        switch self {
+        case .spades:
+            return "spades"
+        case .hearts:
+            return "hearts"
+        case .diamonds:
+            return "diamonds"
+        case .clubs:
+            return "clubs"
+        }
+    }
+}
+let hearts = Suit.hearts
+let heartsDescription = hearts.simpleDescription()
+
+// 另一种枚举，在实例化时关联具体值
+enum ServerResponse {
+    case result(String, String)
+    case failure(String)
+}
+
+let success = ServerResponse.result("6:00 am", "8:09 pm")
+let failure = ServerResponse.failure("Out of cheese.")
+
+switch success {
+case let .result(sunrise, sunset):
+    print("Sunrise at \(sunrise) and sunset at \(sunset).")
+case let .failure(message):
+    print("Failure... \(message)")
+}
+
+// 结构体 和类很相似，包括方法和初始化器
+// 最大的一点区别是 struct是值传递，而方法是引用传递
+
+struct Card {
+    var rank: Rank
+    var suit: Suit
+    func simpleDescription() -> String {
+        return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
+    }
+}
+
+let threeOfSpades = Card(rank: .three, suit: .spades)
+let trheeOfSpadesDescription = threeOfSpades.simpleDescription()
+
+// 并发 使用async关键字表示异步
+func fetchUserID(from server: String) async -> Int {
+    if server == "primary" {
+        return 1
+    } else {
+        return 0
+    }
+}
+// await关键字等待异步函数返回
+func fetchUsername(from server: String) async -> String {
+    let userID = await fetchUserID(from: server)
+    if userID == 501 {
+        return "John Appleseed"
+    } else {
+        return "Anonymous"
+    }
+}
+
+// async let 关键字 用于同步执行
+func connectUser(to server: String) async {
+    async let username = fetchUsername(from: server)
+    async let userID = fetchUserID(from: server)
+    let greeting = await "Hello, \(username), user ID \(userID)"
+    print(greeting)
+}
+
+// 使用Task调用异步函数 ,无需等待返回
+Task {
+    await connectUser(to: "primary")
+}
+
+// 使用Task组合多个异步函数
+let userIDs = await withTaskGroup(of: Int.self) { group in
+    for server in ["primary", "secondary", "development"] {
+        group.addTask {
+            return await fetchUserID(from: server)
+        }
+    }
+
+    var results: [Int] = []
+    for await result in group {
+        results.append(result)
+    }
+    return results
+}
+
+// 演员与类相似，只是它们确保不同的异步函数可以同时与同一演员的实例安全地交互。
+actor ServerConnection {
+    var server: String = "primary"
+    private var activeUsers: [Int] = []
+    func connect() async -> Int {
+        let userID = await fetchUserID(from: server)
+        // ... communicate with server ...
+        activeUsers.append(userID)
+        return userID
+    }
+}
+
+// 使用await关键字 表示等待其他已经在跟actor交互的函数完成
+let server = ServerConnection()
+let userID = await server.connect()
+
+// protocols 和extensions
+
+protocol ExampleProtocol {
+    var simpleDescription: String { get }
+    mutating func adjust()
+}
+
+// 类，枚举和结构体都可以遵循协议
+class SimpleClass: ExampleProtocol {
+    var simpleDescription: String = "A very simple class."
+    var anotherProperty: Int = 69105
+    func adjust() {
+        simpleDescription += "  Now 100% adjusted."
+    }
+}
+var a = SimpleClass()
+a.adjust()
+let aDescription = a.simpleDescription
+
+struct SimpleStructure: ExampleProtocol {
+    var simpleDescription: String = "A simple structure"
+    mutating func adjust() {
+        simpleDescription += " (adjusted)"
+    }
+}
+var b = SimpleStructure()
+b.adjust()
+let bDescription = b.simpleDescription
+
+// extension 可以为已经存在的类型添加新的功能
+extension Int: ExampleProtocol {
+    var simpleDescription: String {
+        return "The number \(self)"
+    }
+    mutating func adjust() {
+        self += 42
+    }
+}
+print(7.simpleDescription)  // Prints "The number 7"
+
+// 错误处理 使用Error协议
+enum PrinterError: Error {
+    case outOfPaper
+    case noToner
+    case onFire
+}
+
+// 使用throws关键字，抛出错误
+func send(job: Int, toPrinter printerName: String) throws -> String {
+    if printerName == "Never Has Toner" {
+        throw PrinterError.noToner
+    }
+    return "Job sent"
+}
+
+// 使用do-catch语句处理错误
+do {
+    let printerResponse = try send(job: 1040, toPrinter: "Bi Sheng")
+    print(printerResponse)
+} catch {
+    print(error)
+}
+
+// 使用多个catch语句捕捉不同类型的错误
+do {
+    let printerResponse = try send(job: 1440, toPrinter: "Gutenberg")
+    print(printerResponse)
+} catch PrinterError.onFire {
+    print("I'll just put this over fire.")
+} catch let printerError as PrinterError {
+    print("Printer error: \(printerError).")
+} catch {
+    print(error)
+}
+
+// 使用try?将错误转换为可选值
+let printerSuccess = try? send(job: 1884, toPrinter: "Mergenthaler")
+let printerFailure = try? send(job: 1885, toPrinter: "Never Has Toner")
+
+// defer语句 在函数return前执行，不管是否抛出错误
+var fridgeIsOpen = false
+let fridgeContent = ["milk", "eggs", "leftovers"]
+
+func fridgeContains(_ food: String) -> Bool {
+    fridgeIsOpen = true
+    defer {
+        fridgeIsOpen = false
+    }
+
+    let result = fridgeContent.contains(food)
+    return result
+}
+if fridgeContains("banana") {
+    print("Found a banana")
+}
+print(fridgeIsOpen)  // Prints "false"
+
+// 泛型
+func makeArray<Item>(repeating item: Item, numberOfTimes: Int) -> [Item] {
+    var result: [Item] = []
+    for _ in 0..<numberOfTimes {
+        result.append(item)
+    }
+    return result
+}
+_ = makeArray(repeating: "knock", numberOfTimes: 4)
+
+// enum 使用范型
+enum OptionalValue<Wrapped> {
+    case none
+    case some(Wrapped)
+}
+var possibleInteger: OptionalValue<Int> = .none
+possibleInteger = .some(100)
+
+// 使用where语句 限制泛型
+func anyCommonElements<T: Sequence, U: Sequence>(_ lhs: T, _ rhs: U) -> Bool
+where T.Element: Equatable, T.Element == U.Element {
+    for lhsItem in lhs {
+        for rhsItem in rhs {
+            if lhsItem == rhsItem {
+                return true
+            }
+        }
+    }
+    return false
+}
+_ = anyCommonElements([1, 2, 3], [3])
