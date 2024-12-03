@@ -1,4 +1,4 @@
-# [基本操作符](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/basicoperators#Remainder-Operator)
+# [基本操作符](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/basicoperators)
 > 赋值，算数操作符，比较操作符等。
 
 ## 术语
