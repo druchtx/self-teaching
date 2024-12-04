@@ -11,4 +11,5 @@ I'm just learning Swift for general purposes and for fun.
 ## Resources
 
 - [Swift official documentation](https://swift.org/)
-
+- [Swift中文官方文档](https://doc.swiftgg.team/documentation/the-swift-programming-language)
+- [Playground](https://swiftfiddle.com/) - online playground for Swift
