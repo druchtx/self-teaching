@@ -72,13 +72,13 @@ while <#condition#> {
 repeat {
     <#statements#>
 } while <#condition#>
-``` 
+```
 
 ## 条件语句
 
 Swift 提供两种类型的条件语句：
 
-- if 语句 
+- if 语句
 - switch 语句
 
 ### if
@@ -395,6 +395,7 @@ if #available(iOS 10, macOS 10.12, *) {
     // 使用先前版本的 iOS 和 macOS 的 API
 }
 ```
+
 当你在 guard 语句中使用可用性条件时，它将细化用于该代码块中其余代码的可用性信息。
 
 ```swift
