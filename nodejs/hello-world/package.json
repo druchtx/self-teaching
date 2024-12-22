@@ -1,9 +1,8 @@
 {
-  "name": "@hsulzz/hello-world",
-  "version": "0.0.5",
-  "main": "src/index.js",
+  "name": "@hsulzz/tools",
+  "version": "0.0.2",
   "bin": {
-    "hello-world": "src/index.js"
+    "uuid": "src/uuid.js"
   },
   "scripts": {
     "start": "node src/index.js",
@@ -12,7 +11,10 @@
   "keywords": [
     "hello-world"
   ],
-  "author": "",
+  "author": "Drúcht <xulu@ymail.ne.jp>",
   "license": "ISC",
-  "description": "hello-world"
+  "description": "hello-world",
+  "main": "index.js",
+  "devDependencies": {},
+  "type": "commonjs"
 }

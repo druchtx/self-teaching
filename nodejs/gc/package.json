@@ -9,8 +9,8 @@
   "author": "Drúcht <xulu@ymail.ne.jp>",
   "license": "ISC",
   "type": "commonjs",
-  "description": "",
   "devDependencies": {
     "@types/node": "^22.10.2"
-  }
+  },
+  "description": ""
 }

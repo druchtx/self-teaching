@@ -5,5 +5,16 @@
   },
   "devDependencies": {
     "@types/progress": "^2.0.7"
-  }
+  },
+  "name": "command-line",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Drúcht <xulu@ymail.ne.jp>",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": ""
 }
