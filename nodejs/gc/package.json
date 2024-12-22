@@ -1,17 +1,16 @@
 {
-  "name": "my-esm-lib",
-  "version": "1.0.0",
+  "name": "gc",
+  "version": "0.0.1",
   "main": "index.js",
-  "module": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Drúcht <xulu@ymail.ne.jp>",
   "license": "ISC",
   "type": "commonjs",
   "description": "",
-  "dependencies": {
-    "esm": "^3.2.25"
+  "devDependencies": {
+    "@types/node": "^22.10.2"
   }
 }
