@@ -1,5 +1,5 @@
 {
-  "name": "nodejs",
+  "name": "async-programming",
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
@@ -9,15 +9,5 @@
   "author": "Drúcht <xulu@ymail.ne.jp>",
   "license": "ISC",
   "type": "commonjs",
-  "description": "",
-  "workspaces": [
-    "command-line",
-    "gc",
-    "global-objects",
-    "hello-world",
-    "manpulate-files",
-    "modules",
-    "error-handling",
-    "async-programming"
-  ]
+  "description": ""
 }
