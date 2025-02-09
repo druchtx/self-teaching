@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 	"unicode/utf8"
-) 
+)
 
 func Reverse(s string) (string, error) {
 	if !utf8.ValidString(s) {
