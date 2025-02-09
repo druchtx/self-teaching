@@ -46,6 +46,28 @@ func TestBatchInsert(t *testing.T) {
 	}
 	db.CreateInBatches(users, 100)
 }
+
+func TestRetrieving(t *testing.T) {
+
+	db := getConnection()
+	result := db.First(&User{})
+	if result.Error != nil {
+		t.Fail()
+	}
+	t.Log(result.RowsAffected)
+}
+
+func TestRetrieving1(t *testing.T) {
+
+	db := getConnection()
+	var users []*User
+	result := db.Find(&users)
+	if result.Error != nil {
+		t.Fail()
+	}
+	t.Log(result.RowsAffected)
+	t.Log(users)
+}
 func getConnection() *gorm.DB {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
