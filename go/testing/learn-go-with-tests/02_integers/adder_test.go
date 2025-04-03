@@ -16,8 +16,8 @@ func TestAdder(t *testing.T) {
 
 // https://go.dev/blog/examples
 // go example starts with Example
+// Output is the expected result,if no Output provided,the test will only compiles but not run
 func ExampleAdd() {
 	fmt.Println(Add(1, 1))
-	// Output is the expected result,if no Output provided,the test will only compiles but not run
 	// Output: 2
 }
